@@ -1,69 +1,60 @@
-# React + TypeScript + Vite
+# Art Gallery DataTable
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application built with Vite and TypeScript that displays artworks from the Art Institute of Chicago API with advanced selection features.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+# Create project
+npm create vite@latest art-gallery-table -- --template react-ts
+cd art-gallery-table
 
-## Expanding the ESLint configuration
+# Install dependencies
+npm install primereact primeicons axios
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+##  Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **React 18** with TypeScript
+- **Vite** for build tooling
+- **PrimeReact** for DataTable component
+- **Axios** for API calls
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Features
+
+-  Server-side pagination (12 records per page)
+-  Row selection with checkboxes
+-  Bulk selection panel (select N rows across pages)
+-  Persistent selection across page navigation
+-  Individual row selection/deselection tracking
+-  Memory optimized (no data accumulation)
+
+##  Key Functionality
+
+### Bulk Selection
+- Click "Select Rows" button
+- Enter number (e.g., 20)
+- Selects first N rows across multiple pages
+- If page 1 has 12 records and you select 20, remaining 8 auto-select on page 2
+
+### Persistent Selection
+- Manual selections persist when switching pages
+- If you deselect a row on page 2, it stays deselected when you return
+- Combines bulk + individual selections intelligently
+
+##  Project Structure
+
 ```
+src/
+├── App.tsx              # Main component
+├── main.tsx             # Entry point
+├── index.css            # Styles
+├── services/
+│   └── artworkService.ts # API service
+└── types/
+    └── artwork.ts        # TypeScript types
+```
+
